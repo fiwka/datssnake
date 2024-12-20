@@ -27,6 +27,11 @@ extra["springCloudVersion"] = "2024.0.0"
 
 dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.18.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
+    implementation("javax.validation:validation-api:2.0.1.Final")
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("io.swagger:swagger-annotations:1.6.14")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
