@@ -16,6 +16,7 @@ spring:
           dats-snake-2-client:
             url: "https://games-test.datsteam.dev"
 
+
 ---
 
 spring:
