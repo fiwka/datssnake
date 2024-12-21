@@ -3,6 +3,7 @@ package xyz.fiwka.datssnake2.feign.message;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import xyz.fiwka.datssnake2.feign.message.dto.SnakeDto;
 import xyz.fiwka.datssnake2.model.Direction3D;
 import xyz.fiwka.datssnake2.model.Snake;
 
@@ -17,7 +18,7 @@ public class SnakesMoveRequest {
     @JsonProperty("snakes")
     private List<SnakeMoveRequest> movableSnakes = new ArrayList<>();
 
-    public SnakeMoveRequest addMovableSnake(Snake snake, Direction3D direction3D) {
+    public SnakeMoveRequest addMovableSnake(SnakeDto snake, Direction3D direction3D) {
         SnakeMoveRequest snakeMoveRequest = new SnakeMoveRequest(snake.getId(), direction3D.toList());
         this.movableSnakes.add(snakeMoveRequest);
         return snakeMoveRequest;

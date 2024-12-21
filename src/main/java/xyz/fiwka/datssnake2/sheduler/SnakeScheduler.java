@@ -2,6 +2,7 @@ package xyz.fiwka.datssnake2.sheduler;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import xyz.fiwka.datssnake2.feign.ClientSecret;
@@ -19,6 +20,7 @@ import xyz.fiwka.datssnake2.transformer.SnakeTransformer;
 import java.util.List;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SnakeScheduler {
@@ -28,18 +30,21 @@ public class SnakeScheduler {
 
     @Scheduled(fixedRate = 1000)
     public void moveSnakeToNearestFood() {
-
         GameStateResponse gameState = datsSnake2FeignClient.getGameState(clientSecret.getSecret());
+
+        gameStateLog(gameState);
 
         SnakesMoveRequest moveRequest = new SnakesMoveRequest();
 
-        for (SnakeDto snake : gameState.getSnakes()) {
-            if (snake.getStatus() == SnakeAliveStatus.ALIVE) {
-                Point3D nearestFood = findNearestFood(Point3D.fromList(snake.getGeometry().get(0)), gameState.getFood());
-                Direction3D direction3D = determineDirection3D(Point3D.fromList(snake.getGeometry().get(0)), nearestFood);
-                moveRequest.addMovableSnake(SnakeTransformer.toSnake(snake), direction3D);
-            }
-        }
+        gameState.getSnakes().stream()
+                .map(SnakeTransformer::toSnake)
+                .filter(snake -> snake.getStatus() == SnakeAliveStatus.ALIVE)
+                .filter(snake -> !snake.getGeometry().isEmpty())
+                .forEach(snake -> {
+                    Point3D nearestFood = findNearestFood(snake.getGeometry().getFirst(), gameState.getFood());
+                    Direction3D direction3D = determineDirection3D(snake.getGeometry().getFirst(), nearestFood);
+                    moveRequest.addMovableSnake(SnakeTransformer.toSnakeDto(snake), direction3D);
+                });
 
         datsSnake2FeignClient.moveSnake(moveRequest, clientSecret.getSecret());
     }
@@ -77,5 +82,25 @@ public class SnakeScheduler {
         } else {
             return dz > 0 ? Direction3D.Cords.Z.positive() : Direction3D.Cords.Z.negative();
         }
+    }
+
+    private void gameStateLog(GameStateResponse gameStateResponse) {
+        log.info(
+                """
+                
+                Team name: {},
+                Points team num: {},
+                Team snakes: {}
+                All snakes num: {}
+                Alive snakes num: {}
+                """,
+                gameStateResponse.getName(),
+                gameStateResponse.getPoints(),
+                gameStateResponse.getSnakes(),
+                gameStateResponse.getSnakes().size(),
+                gameStateResponse.getSnakes().stream()
+                        .filter(snake -> snake.getStatus() == SnakeAliveStatus.ALIVE)
+                        .count()
+        );
     }
 }
