@@ -15,9 +15,6 @@ spring:
         config:
           dats-snake-2-client:
             url: "https://games-test.datsteam.dev"
-    loadbalancer:
-      ribbon:
-        enabled: false
 
 ---
 
@@ -31,9 +28,6 @@ spring:
                 config:
                     dats-snake-2-client:
                         url: "https://games.datsteam.dev"
-    loadbalancer:
-      ribbon:
-        enabled: false
 
 
 
