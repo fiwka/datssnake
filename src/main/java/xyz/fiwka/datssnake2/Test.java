@@ -26,13 +26,13 @@ public class Test implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        List<SnakeDto> snakes = datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes();
-        SnakesMoveRequest snakesMoveRequest = new SnakesMoveRequest();
-        snakes.forEach(snake -> snakesMoveRequest.addMovableSnake(new Snake(snake.getId()), Direction3D.positiveXDirection()));
-        datsSnake2FeignClient.moveSnake(snakesMoveRequest, "ccf5f1fe-e82f-46c5-b592-e240d66ab2aa");
+        //List<SnakeDto> snakes = datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes();
+        //SnakesMoveRequest snakesMoveRequest = new SnakesMoveRequest();
+        //snakes.forEach(snake -> snakesMoveRequest.addMovableSnake(new Snake(snake.getId()), Direction3D.positiveXDirection()));
+        //datsSnake2FeignClient.moveSnake(snakesMoveRequest, "ccf5f1fe-e82f-46c5-b592-e240d66ab2aa");
 
-        Thread.sleep(4000);
+        //Thread.sleep(4000);
 
-        System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes());
+        //System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes());
     }
 }
