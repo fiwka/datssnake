@@ -67,3 +67,18 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
+
+      - name: preparing key pem
+        run: |
+          echo "${{ secret.SSH_KEY }}" > key.pem
+
+      - name: copying on server
+        run: |
+          scp ./datssnake2-0.0.1-SNAPSHOT.jar root@217.25.95.226:/setup
+          scp -o StrictHostKeyChecking=no -i key.pem ./datssnake2-0.0.1-SNAPSHOT.jar root@217.25.95.226:/setup
+
+      - name: run on server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem root@217.25.95.226 "/setup/run.sh"
+          
+
