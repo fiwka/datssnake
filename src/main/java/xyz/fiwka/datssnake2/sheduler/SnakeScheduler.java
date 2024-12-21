@@ -24,7 +24,11 @@ public class SnakeScheduler {
 
     private final List<String> mySnakeIds;
 
-    public SnakeScheduler(DatsSnake2FeignClient datsSnake2FeignClient, @Value("${x-auth-token}") String xAuthToken, List<String> mySnakeIds) {
+    public SnakeScheduler(
+            DatsSnake2FeignClient datsSnake2FeignClient,
+            @Value("${x-auth-token}") String xAuthToken,
+            List<String> mySnakeIds
+    ) {
         this.datsSnake2FeignClient = datsSnake2FeignClient;
         this.xAuthToken = xAuthToken;
         this.mySnakeIds = mySnakeIds;
@@ -76,11 +80,11 @@ public class SnakeScheduler {
         int dz = target.z() - snakeHead.z();
 
         if (Math.abs(dx) >= Math.abs(dy) && Math.abs(dx) >= Math.abs(dz)) {
-            return dx > 0 ? Direction3D.positiveXDirection() : Direction3D.negativeXDirection();
+            return dx > 0 ? Direction3D.Cords.X.positive() : Direction3D.Cords.X.negative();
         } else if (Math.abs(dy) >= Math.abs(dx) && Math.abs(dy) >= Math.abs(dz)) {
-            return dy > 0 ? Direction3D.positiveYDirection() : Direction3D.negativeYDirection();
+            return dy > 0 ? Direction3D.Cords.Y.positive() : Direction3D.Cords.Y.negative();
         } else {
-            return dz > 0 ? Direction3D.positiveZDirection() : Direction3D.negativeZDirection();
+            return dz > 0 ? Direction3D.Cords.Z.positive() : Direction3D.Cords.Z.negative();
         }
     }
 }

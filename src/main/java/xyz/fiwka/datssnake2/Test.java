@@ -10,9 +10,8 @@ import xyz.fiwka.datssnake2.feign.message.SnakesMoveRequest;
 import xyz.fiwka.datssnake2.feign.message.dto.SnakeDto;
 import xyz.fiwka.datssnake2.model.Direction3D;
 import xyz.fiwka.datssnake2.model.Snake;
-import xyz.fiwka.datssnake2.model.SnakeStatus;
+import xyz.fiwka.datssnake2.model.SnakeAliveStatus;
 
-import javax.swing.*;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class Test implements ApplicationRunner {
         Thread.sleep(1000);
 
         System.out.println(gameStateResponse.getPoints());
-        System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes().stream().filter(snake -> snake.getStatus() == SnakeStatus.ALIVE).toList());
+        System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes().stream().filter(snake -> snake.getStatus() == SnakeAliveStatus.ALIVE).toList());
         System.out.println();
     }
 }

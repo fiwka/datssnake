@@ -3,19 +3,19 @@ package xyz.fiwka.datssnake2.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum SnakeStatus {
+public enum SnakeAliveStatus {
 
     ALIVE("alive"), DEAD("dead");
 
     private final String value;
 
-    SnakeStatus(String value) {
+    SnakeAliveStatus(String value) {
         this.value = value;
     }
 
     @JsonCreator
-    public static SnakeStatus fromValue(String text) {
-        for (SnakeStatus b : SnakeStatus.values()) {
+    public static SnakeAliveStatus fromValue(String text) {
+        for (SnakeAliveStatus b : SnakeAliveStatus.values()) {
             if (String.valueOf(b.value).equals(text)) {
                 return b;
             }
