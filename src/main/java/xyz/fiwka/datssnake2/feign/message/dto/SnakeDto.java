@@ -2,7 +2,7 @@ package xyz.fiwka.datssnake2.feign.message.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import xyz.fiwka.datssnake2.model.Snake;
+import xyz.fiwka.datssnake2.model.SnakeStatus;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -32,7 +32,7 @@ public class SnakeDto {
     private int deathCount;
 
     @JsonProperty("status")
-    private Snake.StatusEnum status;
+    private SnakeStatus status;
 
     @JsonProperty("reviveRemainMs")
     private int reviveRemainMs;
