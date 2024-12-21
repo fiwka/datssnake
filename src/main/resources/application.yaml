@@ -2,6 +2,7 @@ spring:
   application:
     name: datssnake
 
+x-auth-token: ccf5f1fe-e82f-46c5-b592-e240d66ab2aa
 ---
 
 spring:
@@ -14,6 +15,9 @@ spring:
         config:
           dats-snake-2-client:
             url: "https://games-test.datsteam.dev"
+    loadbalancer:
+      ribbon:
+        enabled: false
 
 ---
 
@@ -27,3 +31,16 @@ spring:
                 config:
                     dats-snake-2-client:
                         url: "https://games.datsteam.dev"
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
