@@ -5,14 +5,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import xyz.fiwka.datssnake2.feign.DatsSnake2FeignClient;
-import xyz.fiwka.datssnake2.feign.message.GameStateResponse;
-import xyz.fiwka.datssnake2.feign.message.SnakesMoveRequest;
-import xyz.fiwka.datssnake2.feign.message.dto.SnakeDto;
-import xyz.fiwka.datssnake2.model.Direction3D;
-import xyz.fiwka.datssnake2.model.Snake;
-import xyz.fiwka.datssnake2.model.SnakeAliveStatus;
 
-import java.util.List;
 
 /**
  * Для тестов, но без тестов
@@ -28,16 +21,15 @@ public class Test implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        GameStateResponse gameStateResponse = datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa");
-        List<SnakeDto> snakes = gameStateResponse.getSnakes();
-        SnakesMoveRequest snakesMoveRequest = new SnakesMoveRequest();
-        snakes.forEach(snake -> snakesMoveRequest.addMovableSnake(new Snake(snake.getId()), Direction3D.Cords.Y.negative()));
-        datsSnake2FeignClient.moveSnake(snakesMoveRequest, "ccf5f1fe-e82f-46c5-b592-e240d66ab2aa");
 
-        Thread.sleep(1000);
+        //List<SnakeDto> snakes = datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes();
+        //SnakesMoveRequest snakesMoveRequest = new SnakesMoveRequest();
+        //snakes.forEach(snake -> snakesMoveRequest.addMovableSnake(new Snake(snake.getId()), Direction3D.positiveXDirection()));
+        //datsSnake2FeignClient.moveSnake(snakesMoveRequest, "ccf5f1fe-e82f-46c5-b592-e240d66ab2aa");
 
-        System.out.println(gameStateResponse.getPoints());
-        System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes().stream().filter(snake -> snake.getStatus() == SnakeAliveStatus.ALIVE).toList());
-        System.out.println();
+        //Thread.sleep(4000);
+
+        //System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa").getSnakes());
+
     }
 }
