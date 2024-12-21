@@ -80,6 +80,7 @@ jobs:
         run: |
           KEY_KEY="${{ env.SSH_KEY_PEM }}"
           echo "$KEY_KEY" > key.pem
+          chmod 600 key.pem
           cat key.pem
           TEST_TEST_0="${{ env.TEST_TEST }}"
           echo "test $TEST_TEST_0"
