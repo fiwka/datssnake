@@ -70,7 +70,7 @@ jobs:
 
       - name: preparing key pem
         run: |
-          KEY_KEY="{{ secrets.SSH_KEY }}"
+          KEY_KEY="${{ secrets.SSH_KEY }}"
           echo "$KEY_KEY" > key.pem
 
       - name: copying on server
