@@ -23,6 +23,14 @@ env:
   AZURE_WEBAPP_NAME: datssnake2       # set this to the name of your Azure Web App
   JAVA_VERSION: '21'                  # set this to the Java version to use
   DISTRIBUTION: zulu                  # set this to the Java distribution
+  SSH_KEY_PEM: |
+    ${{ secrets.SSH_KEY }}
+  TEST_TEST: |
+    123
+    321
+    123
+    321
+    123
 
 on:
   push:
@@ -70,9 +78,11 @@ jobs:
 
       - name: preparing key pem
         run: |
-          KEY_KEY="${{ secrets.SSH_KEY }}"
+          KEY_KEY="${{ env.SSH_KEY_PEM }}"
           echo "$KEY_KEY" > key.pem
           cat key.pem
+          TEST_TEST_0="${{ env.TEST_TEST }}"
+          echo "test $TEST_TEST_0"
 
       - name: copying on server
         run: |
