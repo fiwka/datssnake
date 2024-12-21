@@ -5,6 +5,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import xyz.fiwka.datssnake2.feign.DatsSnake2FeignClient;
+import xyz.fiwka.datssnake2.feign.header.AccessTokenHeader;
 import xyz.fiwka.datssnake2.feign.message.SnakesMoveRequest;
 import xyz.fiwka.datssnake2.model.Direction3D;
 import xyz.fiwka.datssnake2.model.Snake;
@@ -27,6 +28,6 @@ public class Test implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         SnakesMoveRequest snakesMoveRequest = new SnakesMoveRequest();
         snakesMoveRequest.addMovableSnake(new Snake(UUID.randomUUID().toString()), Direction3D.positiveXDirection());
-        System.out.println(datsSnake2FeignClient.moveSnake(snakesMoveRequest));
+        System.out.println(datsSnake2FeignClient.moveSnake(snakesMoveRequest, "ccf5f1fe-e82f-46c5-b592-e240d66ab2aa"));
     }
 }

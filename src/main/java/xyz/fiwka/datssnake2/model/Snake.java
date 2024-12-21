@@ -25,11 +25,11 @@ public class Snake {
 
     @Valid
     @JsonProperty("direction")
-    private List<Integer> direction = Collections.emptyList();
+    private Direction3D direction;
 
     @Valid
     @JsonProperty("oldDirection")
-    private List<Integer> oldDirection = Collections.emptyList();
+    private Direction3D oldDirection;
 
     @Valid
     @JsonProperty("geometry")

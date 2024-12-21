@@ -21,6 +21,7 @@ public class SnakesMoveRequest {
         return new SnakeMoveRequest(snake.getId(), direction3D.toList());
     }
 
+    @Data
     @AllArgsConstructor
     public static class SnakeMoveRequest {
 
@@ -30,7 +31,7 @@ public class SnakesMoveRequest {
 
         @Valid
         @JsonProperty("direction")
-        private List<Integer> direction = Collections.emptyList();
+        private List<Integer> direction;
 
     }
 
