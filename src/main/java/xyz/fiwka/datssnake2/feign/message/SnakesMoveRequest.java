@@ -8,17 +8,19 @@ import xyz.fiwka.datssnake2.model.Snake;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class SnakesMoveRequest {
 
     @JsonProperty("snakes")
-    private List<SnakeMoveRequest> movableSnakes = Collections.emptyList();
+    private List<SnakeMoveRequest> movableSnakes = new ArrayList<>();
 
     public SnakeMoveRequest addMovableSnake(Snake snake, Direction3D direction3D) {
-        return new SnakeMoveRequest(snake.getId(), direction3D.toList());
+        SnakeMoveRequest snakeMoveRequest = new SnakeMoveRequest(snake.getId(), direction3D.toList());
+        this.movableSnakes.add(snakeMoveRequest);
+        return snakeMoveRequest;
     }
 
     @Data
