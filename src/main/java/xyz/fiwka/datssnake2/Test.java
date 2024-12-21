@@ -28,6 +28,6 @@ public class Test implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         SnakesMoveRequest snakesMoveRequest = new SnakesMoveRequest();
         snakesMoveRequest.addMovableSnake(new Snake(UUID.randomUUID().toString()), Direction3D.positiveXDirection());
-        System.out.println(datsSnake2FeignClient.moveSnake(snakesMoveRequest, "ccf5f1fe-e82f-46c5-b592-e240d66ab2aa"));
+        System.out.println(datsSnake2FeignClient.getGameState("ccf5f1fe-e82f-46c5-b592-e240d66ab2aa"));
     }
 }
