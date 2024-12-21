@@ -1,3 +1,29 @@
 spring:
-    application:
-        name: datssnake
+  application:
+    name: datssnake
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    openfeign:
+      client:
+        config:
+          dats-snake-2-client:
+            url: "https://games-test.datsteam.dev"
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: prod
+    cloud:
+        openfeign:
+            client:
+                config:
+                    dats-snake-2-client:
+                        url: "https://games.datsteam.dev"

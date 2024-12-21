@@ -14,6 +14,7 @@ import java.util.Objects;
  * Round
  */
 @Validated
+@Deprecated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2024-12-20T23:31:01.399014+05:00[Asia/Yekaterinburg]")
 
 public class Round {

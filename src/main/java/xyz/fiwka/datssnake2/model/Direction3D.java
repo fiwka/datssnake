@@ -1,54 +1,47 @@
 package xyz.fiwka.datssnake2.model;
 
-import io.swagger.annotations.ApiModel;
-import org.springframework.validation.annotation.Validated;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
-/**
- * 3D direction [x, y, z]
- */
-@ApiModel(description = "3D direction [x, y, z]")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2024-12-20T23:31:01.399014+05:00[Asia/Yekaterinburg]")
+@Getter
+public class Direction3D {
 
-public class Direction3D extends ArrayList<Integer> {
+    private final int x;
+    private final int y;
+    private final int z;
 
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return true;
+    private Direction3D(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode());
+    public static Direction3D negativeXDirection() {
+        return new Direction3D(-1, 0, 0);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class Direction3D {\n");
-        sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-        sb.append("}");
-        return sb.toString();
+    public static Direction3D positiveXDirection() {
+        return new Direction3D(1, 0, 0);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(java.lang.Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+    public static Direction3D negativeYDirection() {
+        return new Direction3D(0, -1, 0);
+    }
+
+    public static Direction3D positiveYDirection() {
+        return new Direction3D(0, 1, 0);
+    }
+
+    public static Direction3D negativeZDirection() {
+        return new Direction3D(0, 0, -1);
+    }
+
+    public static Direction3D positiveZDirection() {
+        return new Direction3D(0, 0, 1);
+    }
+
+    public List<Integer> toList() {
+        return List.of(this.x, this.y, this.z);
     }
 }
-
