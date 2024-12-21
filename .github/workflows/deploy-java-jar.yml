@@ -70,7 +70,7 @@ jobs:
 
       - name: preparing key pem
         run: |
-          echo "${{ secret.SSH_KEY }}" > key.pem
+          echo "${{ secrets.SSH_KEY }}" > key.pem
 
       - name: copying on server
         run: |
@@ -79,6 +79,6 @@ jobs:
 
       - name: run on server
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem root@217.25.95.226 "/setup/run.sh"
+          ssh -o StrictHostKeyChecking=no -i key.pem root@217.25.95.226 "/setup/run.sh ${{ secrets.CLIENT_SECRET }}"
           
 
