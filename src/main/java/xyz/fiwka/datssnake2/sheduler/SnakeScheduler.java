@@ -10,6 +10,7 @@ import xyz.fiwka.datssnake2.feign.message.SnakesMoveRequest;
 import xyz.fiwka.datssnake2.feign.message.dto.FoodDto;
 import xyz.fiwka.datssnake2.feign.message.dto.SnakeDto;
 import xyz.fiwka.datssnake2.model.Direction3D;
+import xyz.fiwka.datssnake2.model.Point3D;
 import xyz.fiwka.datssnake2.transformer.SnakeTransformer;
 
 import java.util.List;
@@ -39,8 +40,8 @@ public class SnakeScheduler {
 
         for (SnakeDto snake : gameState.getSnakes()) {
             if (mySnakeIds.contains(snake.getId()) && "alive".equals(snake.getStatus().toString())) {
-                List<Integer> nearestFood = findNearestFood(snake.getGeometry().get(0), gameState.getFood());
-                Direction3D direction3D = determineDirection3D(snake.getGeometry().get(0), nearestFood);
+                Point3D nearestFood = findNearestFood(Point3D.fromList(snake.getGeometry().get(0)), gameState.getFood());
+                Direction3D direction3D = determineDirection3D(Point3D.fromList(snake.getGeometry().get(0)), nearestFood);
                 moveRequest.addMovableSnake(SnakeTransformer.toSnake(snake), direction3D);
             }
         }
@@ -48,33 +49,31 @@ public class SnakeScheduler {
         datsSnake2FeignClient.moveSnake(moveRequest, xAuthToken);
     }
 
-    private List<Integer> findNearestFood(List<Integer> snakeHead, List<FoodDto> foodList) {
-        List<Integer> nearestFood = null;
-        double minDistance = Double.MAX_VALUE;
+    private Point3D findNearestFood(Point3D snakeHead, List<FoodDto> foodList) {
+        Point3D nearestFood = null;
+        int minDistance = Integer.MAX_VALUE;
 
         for (FoodDto food : foodList) {
-            double distance = calculateDistance(snakeHead, food.getC());
+            int distance = calculateDistance(snakeHead, Point3D.fromList(food.getC()));
             if (distance < minDistance) {
                 minDistance = distance;
-                nearestFood = food.getC();
+                nearestFood = Point3D.fromList(food.getC());
             }
         }
 
         return nearestFood;
     }
 
-    private double calculateDistance(List<Integer> point1, List<Integer> point2) {
-        return Math.sqrt(
-                Math.pow(point1.get(0) - point2.get(0), 2) +
-                        Math.pow(point1.get(1) - point2.get(1), 2) +
-                        Math.pow(point1.get(2) - point2.get(2), 2)
-        );
+    private int calculateDistance(Point3D point1, Point3D point2) {
+        return Math.abs(point1.x() - point2.x()) +
+                Math.abs(point1.y() - point2.y()) +
+                Math.abs(point1.z() - point2.z());
     }
 
-    private Direction3D determineDirection3D(List<Integer> snakeHead, List<Integer> target) {
-        int dx = target.get(0) - snakeHead.get(0);
-        int dy = target.get(1) - snakeHead.get(1);
-        int dz = target.get(2) - snakeHead.get(2);
+    private Direction3D determineDirection3D(Point3D snakeHead, Point3D target) {
+        int dx = target.x() - snakeHead.x();
+        int dy = target.y() - snakeHead.y();
+        int dz = target.z() - snakeHead.z();
 
         if (Math.abs(dx) >= Math.abs(dy) && Math.abs(dx) >= Math.abs(dz)) {
             return dx > 0 ? Direction3D.positiveXDirection() : Direction3D.negativeXDirection();
