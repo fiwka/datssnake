@@ -86,6 +86,7 @@ jobs:
 
       - name: copying on server
         run: |
+          cat key.pem
           scp -i key.pem ./datssnake2-0.0.1-SNAPSHOT.jar root@217.25.95.226:/setup
           scp -o StrictHostKeyChecking=no -i key.pem ./datssnake2-0.0.1-SNAPSHOT.jar root@217.25.95.226:/setup
 
