@@ -3,9 +3,7 @@ package xyz.fiwka.datssnake2.transformer;
 import xyz.fiwka.datssnake2.feign.message.dto.SnakeDto;
 import xyz.fiwka.datssnake2.model.Direction3D;
 import xyz.fiwka.datssnake2.model.Snake;
-import xyz.fiwka.datssnake2.model.SnakeStatus;
-
-import java.util.stream.Collectors;
+import xyz.fiwka.datssnake2.model.SnakeAliveStatus;
 
 public class SnakeTransformer {
 
@@ -14,7 +12,7 @@ public class SnakeTransformer {
         snake.setDirection(new Direction3D(snakeDto.getDirection()));
         snake.setOldDirection(new Direction3D(snakeDto.getOldDirection()));
         snake.setDeathCount(snakeDto.getDeathCount());
-        snake.setStatus(Snake.StatusEnum.fromValue(snakeDto.getStatus().toString()));
+        snake.setStatus(SnakeAliveStatus.fromValue(snakeDto.getStatus().toString()));
         snake.setReviveRemainMs(snakeDto.getReviveRemainMs());
         return snake;
     }

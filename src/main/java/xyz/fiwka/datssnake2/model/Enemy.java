@@ -15,7 +15,7 @@ public class Enemy {
     private List<Point3D> geometry = Collections.emptyList();
 
     @JsonProperty("status")
-    private SnakeStatus status;
+    private SnakeAliveStatus status;
 
     @JsonProperty("kills")
     private Integer kills;

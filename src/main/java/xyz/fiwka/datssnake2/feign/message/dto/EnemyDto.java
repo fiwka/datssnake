@@ -2,7 +2,7 @@ package xyz.fiwka.datssnake2.feign.message.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import xyz.fiwka.datssnake2.model.SnakeStatus;
+import xyz.fiwka.datssnake2.model.SnakeAliveStatus;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -16,7 +16,7 @@ public class EnemyDto {
     private List<List<Integer>> geometry = Collections.emptyList();
 
     @JsonProperty("status")
-    private SnakeStatus status;
+    private SnakeAliveStatus status;
 
     @JsonProperty("kills")
     private Integer kills;
