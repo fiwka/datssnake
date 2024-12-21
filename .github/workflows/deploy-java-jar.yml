@@ -24,7 +24,7 @@ env:
   JAVA_VERSION: '21'                  # set this to the Java version to use
   DISTRIBUTION: zulu                  # set this to the Java distribution
   SSH_KEY_PEM: |
-    ${{ vars.SSH_KEY }}
+    ${{ secrets.SSH_KEY }}
   TEST_TEST: |
     123
     321
