@@ -1,11 +1,8 @@
 package xyz.fiwka.datssnake2.model;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Getter
 public class Direction3D {
@@ -19,28 +16,38 @@ public class Direction3D {
         this.y = y;
         this.z = z;
     }
+    public Direction3D(List<Integer> direction) {
+        this.x = direction.get(0);
+        this.y = direction.get(1);
+        this.z = direction.get(2);
+    }
+
+
+    public static Direction3D negativeXDirection() {
+        return new Direction3D(-1, 0, 0);
+    }
+
+    public static Direction3D positiveXDirection() {
+        return new Direction3D(1, 0, 0);
+    }
+
+    public static Direction3D negativeYDirection() {
+        return new Direction3D(0, -1, 0);
+    }
+
+    public static Direction3D positiveYDirection() {
+        return new Direction3D(0, 1, 0);
+    }
+
+    public static Direction3D negativeZDirection() {
+        return new Direction3D(0, 0, -1);
+    }
+
+    public static Direction3D positiveZDirection() {
+        return new Direction3D(0, 0, 1);
+    }
 
     public List<Integer> toList() {
         return List.of(this.x, this.y, this.z);
-    }
-
-    @RequiredArgsConstructor
-    public enum Cords {
-
-        X(0), Y(1), Z(2);
-
-        private final int cordIndex;
-
-        public Direction3D positive() {
-            List<Integer> direction = new ArrayList<>(List.of(0, 0, 0));
-            direction.set(cordIndex, 1);
-            return new Direction3D(direction.get(0), direction.get(1), direction.get(2));
-        }
-
-        public Direction3D negative() {
-            List<Integer> direction = new ArrayList<>(List.of(0, 0, 0));
-            direction.set(cordIndex, -1);
-            return new Direction3D(direction.get(0), direction.get(1), direction.get(2));
-        }
     }
 }
